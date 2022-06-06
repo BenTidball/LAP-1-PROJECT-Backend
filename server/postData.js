@@ -3,16 +3,13 @@ const fs = require('fs');
 const filepath = "./data/testpost.json";
 
 function returnFile(){
-  fs.exists(filepath, (e)=>{
-    if(e){
-      let rawdata = fs.readFileSync(filepath);
-      let file = JSON.parse(rawdata);
-      // console.log('file exists');
-      return file;
-    }else{
-      console.error('no file exists');
-    }
-  })
+  try {
+    var data = fs.readFileSync(filepath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.log(err);
+  }
+  
 }
 
 module.exports = {returnFile};

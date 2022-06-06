@@ -9,8 +9,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/readPost", (req, res) => {
-    const result = getPostData.returnFile()
-    res.send(result);
+    res.send(getPostData.returnFile());
 });
+
 
 module.exports = router;
