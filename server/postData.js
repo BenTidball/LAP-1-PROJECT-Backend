@@ -6,5 +6,5 @@ fs.readFile('./data/testpost.json', "utf8", (err, jsonString) => {
       console.log("File read failed:", err);
       return;
     }
-    // console.log("File data:", jsonString);
+    
 });
