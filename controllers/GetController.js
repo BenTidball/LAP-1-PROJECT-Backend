@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/readPost", (req, res) => {
-    getPostData.returnFile().then((data)=>{
+    getPostData.returnFile(`testpost`).then((data)=>{
         res.send(data);
     });
 });
