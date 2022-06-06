@@ -2,13 +2,11 @@ const testGetRouter = require('../controllers/GetController');
 const express = require("express");
 const app = express();
 
+app.use('/test', testGetRouter);
+
 app.get("/", (req, res) => {
     console.log('test');
     res.send("backend test");
-});
-
-app.get(testGetRouter, (req, res) => {
-    res.send("backend server");
 });
 
 const port = 5500;
