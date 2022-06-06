@@ -1,0 +1,21 @@
+{
+    "category": "Cat",
+    "data": [
+        {
+            "post-ID": 1,
+            "post-title": "Cat 1",
+            "post-body": "This is a Cat 1",
+            "post-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 20},
+            "post-comments": [{"reply-ID": 1, "reply-reactions": {"reacion1": 1, "reaction2": 0, "reaction3": 0}, "reply-body": "She looks so cute", "reply-vote": {"upvote": 2, "downvote": 0}},{"reply-ID": 2, "reply-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 1}, "reply-body": "Nice picture", "reply-vote": {"upvote": 2, "downvote": 0}}],
+            "post-vote": {"upvote": 19, "downvote": 2}
+        },
+        {
+            "post-ID": 2,
+            "post-title": "Cat 2",
+            "post-body": "This is a Cat 2",
+            "post-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 20},
+            "post-comments": [{"reply-ID": 1, "reply-reactions": {"reacion1": 1, "reaction2": 0, "reaction3": 0}, "reply-body": "She looks so cute", "reply-vote": {"upvote": 2, "downvote": 0}},{"reply-ID": 2, "reply-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 1}, "reply-body": "Nice picture", "reply-vote": {"upvote": 2, "downvote": 0}}],
+            "post-vote": {"upvote": 19, "downvote": 2}
+        }
+    ]
+}
