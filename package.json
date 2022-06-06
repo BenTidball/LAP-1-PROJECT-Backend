@@ -1,0 +1,26 @@
+{
+  "name": "lap-1-project-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenTidball/LAP-1-PROJECT-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenTidball/LAP-1-PROJECT-Backend/issues"
+  },
+  "homepage": "https://github.com/BenTidball/LAP-1-PROJECT-Backend#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "jest": "^28.1.0"
+  }
+}
