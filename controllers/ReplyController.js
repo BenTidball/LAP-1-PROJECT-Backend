@@ -12,6 +12,8 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+    const data = req.body;
+    console.log(`Add reply: ${JSON.stringify(data)}`);
     res.send("Create a reply");
 });
 
