@@ -1,0 +1,7 @@
+{
+    "post-ID": 1,
+    "post-title": "Test post title",
+    "post-body": "This is a test body",
+    "post-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 20},
+    "post-comments": []
+}
