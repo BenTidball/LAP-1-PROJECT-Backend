@@ -9,8 +9,9 @@ router.get("/", (req, res) => {
 });
 
 router.get("/readPost", (req, res) => {
-    const result = getPostData.returnFile()
-    res.send(result);
+    getPostData.returnFile().then((data)=>{
+        res.send(data);
+    });
 });
 
 module.exports = router;

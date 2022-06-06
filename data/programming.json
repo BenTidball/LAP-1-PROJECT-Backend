@@ -1,0 +1,21 @@
+{
+    "category": "Programming",
+    "data": [
+        {
+            "post-ID": 1,
+            "post-title": "Javascript",
+            "post-body": "This is Javascript",
+            "post-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 20},
+            "post-comments": [{"reply-ID": 1, "reply-reactions": {"reacion1": 1, "reaction2": 0, "reaction3": 0}, "reply-body": "Javascript is awesome", "reply-vote": {"upvote": 2, "downvote": 0}},{"reply-ID": 2, "reply-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 1}, "reply-body": "Javascript is god", "reply-vote": {"upvote": 2, "downvote": 0}}],
+            "post-vote": {"upvote": 19, "downvote": 2}
+        },
+        {
+            "post-ID": 2,
+            "post-title": "Typescript",
+            "post-body": "This is a Typescript",
+            "post-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 20},
+            "post-comments": [{"reply-ID": 1, "reply-reactions": {"reacion1": 1, "reaction2": 0, "reaction3": 0}, "reply-body": "Typescript is awesome", "reply-vote": {"upvote": 2, "downvote": 0}},{"reply-ID": 2, "reply-reactions": {"reacion1": 2, "reaction2": 4, "reaction3": 1}, "reply-body": "Typescript is the future", "reply-vote": {"upvote": 2, "downvote": 0}}],
+            "post-vote": {"upvote": 19, "downvote": 2}
+        }
+    ]
+}
