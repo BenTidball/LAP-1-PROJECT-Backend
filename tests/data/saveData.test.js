@@ -1,15 +1,35 @@
 const request = require("supertest");
-const app = require("../../app");
+const app = require("../../server/app");
 const testData = require("../../data/testpost.json");
 
-describe('Save data reading', () => {
-  test('should return json object containing post data', () => {
-    // expect(testData["post-title"]).toBe("Test post title");
-    request(app).get("/readPost").then(response => {
-      // expect(response).toBe();
-      // console.log(response);
-      done();
-    });
-  });
+describe('Can reach server route', () => {
+
+  let testServer;
+  beforeAll(() => {
+    testServer = app.listen(6000, ()=>{
+      console.log("Test server open on port 6000");
+    })
+  })
+
+  afterAll((done) => {
+    console.log('Ending test server');
+    testServer.close(done);
 });
 
+  test('should return a status of 200', (done) => {
+    request(testServer).get('/').expect(200, done);
+  });
+
+  test('should return a status of 200', (done) => {
+    request(testServer).get('/test/readPost').expect(200, done);
+  });
+  
+  // describe('return json post data', () => {
+   
+  //   test('should return a status of 200', (done) => {
+  //     request(testServer).get('/test/readPost').expect(200, done);
+  //   });
+
+  // });
+
+});

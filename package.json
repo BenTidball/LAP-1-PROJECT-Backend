@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node index.js",
     "test": "jest",
-    "dev": "nodemon server/app.js"
+    "coverage": "jest --coverage",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",

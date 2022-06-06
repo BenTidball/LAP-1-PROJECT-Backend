@@ -1,10 +1,18 @@
 const fs = require('fs');
 
+const filepath = "./data/testpost.json";
 
-fs.readFile('./data/testpost.json', "utf8", (err, jsonString) => {
-    if (err) {
-      console.log("File read failed:", err);
-      return;
+function returnFile(){
+  fs.exists(filepath, (e)=>{
+    if(e){
+      let rawdata = fs.readFileSync(filepath);
+      let file = JSON.parse(rawdata);
+      // console.log('file exists');
+      return file;
+    }else{
+      console.error('no file exists');
     }
-    
-});
+  })
+}
+
+module.exports = {returnFile};
