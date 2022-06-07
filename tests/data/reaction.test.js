@@ -76,7 +76,7 @@ describe('Test reaction part', () => {
         .then(()=>{
             request(basePath).get(`/post/topic/${topic}`).then((afterSubmitReaction) => {
                 let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
-                expect(beforeObject.reaction1).toBe(afterObject.reaction1);
+                expect(beforeObject.reaction1 + 1).toBe(afterObject.reaction1);
             });
         });
       });
@@ -98,7 +98,7 @@ describe('Test reaction part', () => {
             .then(()=>{
                 request(basePath).get(`/post/topic/${topic}`).then((afterSubmitReaction) => {
                     let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
-                    expect(beforeObject.reaction2).toBe(afterObject.reaction2);
+                    expect(beforeObject.reaction2 + 1).toBe(afterObject.reaction2);
                 });
             });
         });
@@ -120,7 +120,7 @@ describe('Test reaction part', () => {
         .then(()=>{
             request(basePath).get(`/post/topic/${topic}`).then((afterSubmitReaction) => {
                 let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
-                expect(beforeObject.reaction3).toBe(afterObject.reaction3);
+                expect(beforeObject.reaction3 + 1).toBe(afterObject.reaction3);
             });
         });
         });
