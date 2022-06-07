@@ -32,7 +32,7 @@ async function createNewPost(data, category){
 }
 
 //creates a new comment within a existing posts comment array, inputs required are the data/post, the catergory the post exists within, and lastly the post on which the comment is applied
-async function createComment(data, category, post){
+async function createComment(data, category, postID){
   const commentData = {
     "reply-id": 0,
     "reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},

@@ -1,5 +1,6 @@
 const request = require("supertest");
 let basePath = `http://localhost:5000`;
+const cats = require('../../data/cats.json')
 
 describe('Test comment part', () => {
   
@@ -96,6 +97,18 @@ describe('Test comment part', () => {
     });
 
   });
+
+  // describe('Comment saved to json file', () => {
+  //   test('should have a comment appended to post', () => {
+  //     const commentData = {
+  //       comment: {commentBody: "reply test"},
+  //       category: 'cats',
+  //       post: {"post-id": 9}
+  //     }
+  //     request(basePath).post(`/post/comment`).send(commentData);
+      
+  //   });
+  // });
 });
 
 function getListOfPostObject(responseObject) {
