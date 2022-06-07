@@ -3,9 +3,6 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const postData = require('../server/readWriteJson');
 
-const bodyParser = require('body-parser');
-router.use(bodyParser.json());
-
 router.use(bodyParser.json());
 
 router.get("/", (req, res) => {
@@ -56,8 +53,13 @@ router.post("/vote", (req, res) => {
 });
 
 router.post("/post", (req, res) => {
-    console.log(req.body);
-    postData.createNewPost(req.body, "cats2");
+    const data = req.body;
+    if(data.postTitle != null && data.postBody != null){
+        postData.createNewPost(data, "cats");
+    }else {
+        res.status(400);
+        res.send("Ensure your post has a title and message");
+    }
 })
 
 module.exports = router;
