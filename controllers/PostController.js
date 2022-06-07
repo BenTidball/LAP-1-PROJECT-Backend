@@ -30,6 +30,7 @@ router.post("/", (req, res) => {
 router.post("/comment", (req, res) => {
     const data = req.body;
     // console.log(`Add comment to a post: ${JSON.stringify(data)}`);
+    postData.createComment(data.comment, data.category, data.post);
     res.send("Add comment to a post");
 });
 
