@@ -32,25 +32,39 @@ router.post("/", (req, res) => {
 router.post("/comment", (req, res) => {
     const data = req.body;
     console.log(`Add comment to a post: ${JSON.stringify(data)}`);
-    res.send("Add comment to a post");
+    if (data.postId !== null && data.replyId === null && data.comment !== null) {
+        res.send("Add up reaction to a post: TODO");
+    } else if (data.postId !== null && data.replyId === null && data.comment !== null) {
+        res.send("Add down reaction to a post: TODO");
+    } else {
+        res.status(400);
+        res.send("Missing either postId or replyId or comment");
+    }
 });
 
 router.post("/reaction", (req, res) => {
     const data = req.body;
     console.log(`Add reaction to a post: ${JSON.stringify(data)}`);
-    res.send("Add reaction to a post");
+    if (data.postId !== null && data.replyId === null && data.reaction !== null) {
+        res.send("Add up reaction to a post: TODO");
+    } else if (data.postId !== null && data.replyId === null && data.reaction !== null) {
+        res.send("Add down reaction to a post: TODO");
+    } else {
+        res.status(400);
+        res.send("Missing either postId or replyId or reaction");
+    }
 });
 
 router.post("/vote", (req, res) => {
     const data = req.body;
     console.log(`Add vote to a post: ${JSON.stringify(data)}`);
-    if (data.postId !== null && data.replyId === null && data.updownvote !== null) {
+    if (data.postId !== null && data.replyId === null && data.voteType !== null) {
         res.send("Add up vote to a post: TODO");
-    } else if (data.postId !== null && data.replyId === null && data.updownvote !== null) {
+    } else if (data.postId !== null && data.replyId === null && data.voteType !== null) {
         res.send("Add down vote to a post: TODO");
     } else {
         res.status(400);
-        res.send("Missing either postId or replyId");
+        res.send("Missing either postId or replyId or voteType");
     }
 });
 
