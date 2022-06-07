@@ -51,9 +51,8 @@ describe('Test reaction part', () => {
       const reactionData = {
         postId: null,
         replyId: null,
-        reaction1: null,
-        reaction2: null,
-        reaction3: null
+        topic: topic,
+        reactionType: null
       };
       await request(basePath)
         .post(`/post/reaction`)
@@ -62,45 +61,69 @@ describe('Test reaction part', () => {
     });
 
     it('Test submit a reaction1 to a post', async () => {
-      const beforeSubmitReaction = await request(basePath).get(`/post/topic/${topic}`);
-      let beforeObject = getPostReactionsByPosition(beforeSubmitReaction, 0);
-      const reactionData = {
-        postId: beforeObject.postId,
-        replyId: beforeObject.replyId,
-        reaction: "reaction1"
-      };
-      await request(basePath).post(`/post/reaction`).send(reactionData).expect(200);
-      const afterSubmitReaction = await request(basePath).get(`/post/topic/${topic}`);
-      let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
-      expect(beforeObject.reaction1).toEqual(afterObject.reaction1 - 1);
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeSubmitReaction) => {
+        let beforeObject = getPostReactionsByPosition(beforeSubmitReaction, 0);
+        const reactionData = {
+            postId: beforeObject.postId,
+            replyId: beforeObject.replyId,
+            topic: topic,
+            reactionType: "reaction1"
+        };
+        request(basePath)
+        .post(`/post/reaction`)
+        .send(reactionData)
+        .expect(200)
+        .then(()=>{
+            request(basePath).get(`/post/topic/${topic}`).then((afterSubmitReaction) => {
+                let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
+                expect(beforeObject.reaction1).toEqual(afterObject.reaction1 - 1);
+            });
+        });
+      });
     });
 
     it('Test submit a reaction2 to a post', async () => {
-        const beforeSubmitReaction = await request(basePath).get(`/post/topic/${topic}`);
-        let beforeObject = getPostReactionsByPosition(beforeSubmitReaction, 0);
-        const reactionData = {
-          postId: beforeObject.postId,
-          replyId: beforeObject.replyId,
-          reaction: "reaction2"
-        };
-        await request(basePath).post(`/post/reaction`).send(reactionData).expect(200);
-        const afterSubmitReaction = await request(basePath).get(`/post/topic/${topic}`);
-        let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
-        expect(beforeObject.reaction2).toEqual(afterObject.reaction2 - 1);
+        await request(basePath).get(`/post/topic/${topic}`).then((beforeSubmitReaction) => {
+            let beforeObject = getPostReactionsByPosition(beforeSubmitReaction, 0);
+            const reactionData = {
+            postId: beforeObject.postId,
+            replyId: beforeObject.replyId,
+            topic: topic,
+            reactionType: "reaction2"
+            };
+            request(basePath)
+            .post(`/post/reaction`)
+            .send(reactionData)
+            .expect(200)
+            .then(()=>{
+                request(basePath).get(`/post/topic/${topic}`).then((afterSubmitReaction) => {
+                    let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
+                    expect(beforeObject.reaction2).toEqual(afterObject.reaction2 - 1);
+                });
+            });
+        });
       });
 
     it('Test submit a reaction3 to a post', async () => {
-    const beforeSubmitReaction = await request(basePath).get(`/post/topic/${topic}`);
-    let beforeObject = getPostReactionsByPosition(beforeSubmitReaction, 0);
-    const reactionData = {
-        postId: beforeObject.postId,
-        replyId: beforeObject.replyId,
-        reaction: "reaction3"
-    };
-    await request(basePath).post(`/post/reaction`).send(reactionData).expect(200);
-    const afterSubmitReaction = await request(basePath).get(`/post/topic/${topic}`);
-    let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
-    expect(beforeObject.reaction3).toEqual(afterObject.reaction3 - 1);
+    await request(basePath).get(`/post/topic/${topic}`).then((beforeSubmitReaction) => {
+        let beforeObject = getPostReactionsByPosition(beforeSubmitReaction, 0);
+        const reactionData = {
+            postId: beforeObject.postId,
+            replyId: beforeObject.replyId,
+            topic: topic,
+            reactionType: "reaction3"
+        };
+        request(basePath)
+        .post(`/post/reaction`)
+        .send(reactionData)
+        .expect(200)
+        .then(()=>{
+            request(basePath).get(`/post/topic/${topic}`).then((afterSubmitReaction) => {
+                let afterObject = getPostReactionsByPosition(afterSubmitReaction, 0);
+                expect(beforeObject.reaction3).toEqual(afterObject.reaction3 - 1);
+            });
+        });
+        });
     });
   });
 });

@@ -45,6 +45,7 @@ describe('Test vote part', () => {
       const voteData = {
         postId: null,
         replyId: null,
+        topic: null,
         voteType: null
       };
       await request(basePath)
@@ -54,31 +55,47 @@ describe('Test vote part', () => {
     });
 
     it('Test submit a up vote to a post', async () => {
-      const beforeUpvote = await request(basePath).get(`/post/topic/${topic}`);
-      let beforeObject = getPostVoteByPosition(beforeUpvote, 0);
-      const voteData = {
-        postId: beforeObject.postId,
-        replyId: beforeObject.replyId,
-        voteType: "upvote"
-      };
-      await request(basePath).post(`/post/vote`).send(voteData).expect(200);
-      const afterUpvote = await request(basePath).get(`/post/topic/${topic}`);
-      let afterObject = getPostVoteByPosition(afterUpvote, 0);
-      expect(beforeObject.upvote).toEqual(afterObject.upvote - 1);
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeUpvote) => {
+        let beforeObject = getPostVoteByPosition(beforeUpvote, 0);
+        const voteData = {
+          postId: beforeObject.postId,
+          replyId: beforeObject.replyId,
+          topic: topic,
+          voteType: "upvote"
+        };
+        request(basePath)
+        .post(`/post/vote`)
+        .send(voteData)
+        .expect(200)
+        .then(()=>{
+          request(basePath).get(`/post/topic/${topic}`).then((afterUpvote) => {
+            let afterObject = getPostVoteByPosition(afterUpvote, 0);
+            expect(beforeObject.upvote).toEqual(afterObject.upvote - 1);
+          });
+        });
+      });
     });
 
     it('Test submit a down vote to a post', async () => {
-      const beforeUpvote = await request(basePath).get(`/post/topic/${topic}`);
-      let beforeObject = getPostVoteByPosition(beforeUpvote, 0);
-      const voteData = {
-        postId: beforeObject.postId,
-        replyId: beforeObject.replyId,
-        voteType: "downvote"
-      };
-      await request(basePath).post(`/post/vote`).send(voteData).expect(200);
-      const afterUpvote = await request(basePath).get(`/post/topic/${topic}`);
-      let afterObject = getPostVoteByPosition(afterUpvote, 0);
-      expect(beforeObject.downvote).toEqual(afterObject.downvote - 1);
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeUpvote) => {
+        let beforeObject = getPostVoteByPosition(beforeUpvote, 0);
+        const voteData = {
+          postId: beforeObject.postId,
+          replyId: beforeObject.replyId,
+          topic: topic,
+          voteType: "downvote"
+        };
+        request(basePath)
+        .post(`/post/vote`)
+        .send(voteData)
+        .expect(200)
+        .then(()=>{
+          request(basePath).get(`/post/topic/${topic}`).then((afterUpvote) => {
+            let afterObject = getPostVoteByPosition(afterUpvote, 0);
+            expect(beforeObject.downvote).toEqual(afterObject.downvote - 1);
+          });
+        });
+      });
     });
   });
 });
