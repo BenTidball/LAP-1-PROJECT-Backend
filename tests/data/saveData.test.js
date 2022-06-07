@@ -27,7 +27,7 @@ describe('Can reach server route', () => {
   //read from json
   describe('return json post data', (done) => {
     it('should return testPost.json', async () => {
-      const data = await request(`http://localhost:5000`)
+      const data = await request(`http://localhost:6000`)
         .get('/get/readPost');
       expect(data.text).toEqual(JSON.stringify(testData), done);
     });
