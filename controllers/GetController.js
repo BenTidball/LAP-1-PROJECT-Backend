@@ -1,18 +1,15 @@
 const express = require('express')
 const router = express.Router();
-const postData = require('../server/postData');
-const getPostData = require('../server/postData')
+const getPostData = require('../server/readWriteJson')
 
-// Test routes - to be deleted before push/merge with main
 router.get("/", (req, res) => {
-    res.send("backend server get test");
+    res.send("backend server");
 });
 
 router.get("/readPost", (req, res) => {
-    getPostData.returnFile(`testpost`).then((data)=>{
+    getPostData.returnFile(`cats`).then((data)=>{
         res.send(data);
     });
 });
-
 
 module.exports = router;
