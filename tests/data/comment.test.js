@@ -45,7 +45,7 @@ describe('Test comment part', () => {
     it('Test submit a comment with null attribute', async () => {
       const commentData = {
         postId: null,
-        replyId: null,
+        topic: topic,
         comment: null
       };
       await request(basePath)
@@ -55,31 +55,45 @@ describe('Test comment part', () => {
     });
 
     it('Test submit a comment to a post, checking number of comment', async () => {
-      const beforeSubmitComment = await request(basePath).get(`/post/topic/${topic}`);
-      let beforeObject = getPostCommentsByPosition(beforeSubmitComment, 0);
-      const commentData = {
-        postId: beforeObject.postId,
-        replyId: beforeObject.replyId,
-        comment: "Put in new comment"
-      };
-      await request(basePath).post(`/post/comment`).send(commentData).expect(200);
-      const afterSubmitComment = await request(basePath).get(`/post/topic/${topic}`);
-      let afterObject = getPostCommentsByPosition(afterSubmitComment, 0);
-      expect(beforeObject.comments.length).toEqual(afterObject.comments.length + 1);
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeSubmitComment) => {
+        let beforeObject = getPostCommentsByPosition(beforeSubmitComment, 0);
+        const commentData = {
+          postId: beforeObject.postId,
+          topic: topic,
+          comment: "Put in new comment"
+        };
+        request(basePath)
+        .post(`/post/comment`)
+        .send(commentData)
+        .expect(200)
+        .then(()=>{
+          request(basePath).get(`/post/topic/${topic}`).then((afterSubmitComment)=>{
+            let afterObject = getPostCommentsByPosition(afterSubmitComment, 0);
+            expect(beforeObject.comments.length).toEqual(afterObject.comments.length + 1);
+          });
+        });
+      });
     });
 
     it('Test submit a comment to a post, checking the content', async () => {
-      const beforeSubmitComment = await request(basePath).get(`/post/topic/${topic}`);
-      let beforeObject = getPostCommentsByPosition(beforeSubmitComment, 0);
-      const commentData = {
-        postId: beforeObject.postId,
-        replyId: beforeObject.replyId,
-        comment: "Put in another new comment"
-      };
-      await request(basePath).post(`/post/comment`).send(commentData).expect(200);
-      const afterSubmitComment = await request(basePath).get(`/post/topic/${topic}`);
-      let afterObject = getPostCommentsByPosition(afterSubmitComment, 0);
-      expect((afterObject.comments[afterObject.comments.length - 1])[`reply-body`]).toEqual("Put in another new comment");
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeSubmitComment) => {
+        let beforeObject = getPostCommentsByPosition(beforeSubmitComment, 0);
+        const commentData = {
+          postId: beforeObject.postId,
+          topic: topic,
+          comment: "Put in another new comment"
+        };
+        request(basePath)
+        .post(`/post/comment`)
+        .send(commentData)
+        .expect(200)
+        .then(()=>{
+          request(basePath).get(`/post/topic/${topic}`).then((afterSubmitComment) => {
+            let afterObject = getPostCommentsByPosition(afterSubmitComment, 0);
+            expect((afterObject.comments[afterObject.comments.length - 1])[`reply-body`]).toEqual("Put in another new comment");
+          });
+        });
+      });
     });
 
   });
@@ -115,7 +129,6 @@ function getPostCommentsByPosition(responseObject, pos) {
   let listOfComments = commentAttribute;
   return {
     postId: postId,
-    replyId: null,
     comments: listOfComments
   };
 }
