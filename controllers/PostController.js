@@ -5,10 +5,6 @@ const postData = require('../server/readWriteJson');
 
 router.use(bodyParser.json());
 
-router.get("/", (req, res) => {
-    res.send("Get all post: TODO");
-});
-
 router.get("/topic/:topic", (req, res) => {
     const topic = req.params.topic;
     postData.returnFile(topic).then((data)=>{
