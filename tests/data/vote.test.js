@@ -97,7 +97,7 @@ function getPostFirstObject(responseObject, pos) {
 function getPostVoteByPosition(responseObject, pos) {
   let object = getPostFirstObject(responseObject, pos);
   let voteAttribute = object[`post-vote`];
-  let postId = object[`post-ID`];
+  let postId = object[`post-id`];
   let upVote = voteAttribute.upvote;
   let downVote = voteAttribute.downvote;
   return {

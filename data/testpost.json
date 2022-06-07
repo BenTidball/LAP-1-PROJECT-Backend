@@ -1,5 +1,5 @@
 {
-    "post-ID": 1,
+    "post-id": 1,
     "post-title": "Test post title",
     "post-body": "This is a test body",
     "post-reactions": {"reaction1": 0, "reaction2": 0, "reaction3": 0},

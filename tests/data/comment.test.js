@@ -98,7 +98,7 @@ function getPostFirstObject(responseObject, pos) {
 function getPostCommentsByPosition(responseObject, pos) {
   let object = getPostFirstObject(responseObject, pos);
   let commentAttribute = object[`post-comments`];
-  let postId = object[`post-ID`];
+  let postId = object[`post-id`];
   let listOfComments = commentAttribute;
   return {
     postId: postId,

@@ -119,7 +119,7 @@ function getPostFirstObject(responseObject, pos) {
 function getPostReactionsByPosition(responseObject, pos) {
   let object = getPostFirstObject(responseObject, pos);
   let reactionAttribute = object[`post-reactions`];
-  let postId = object[`post-ID`];
+  let postId = object[`post-id`];
   let reaction1 = reactionAttribute.reaction1;
   let reaction2 = reactionAttribute.reaction2;
   let reaction3 = reactionAttribute.reaction3;
