@@ -70,15 +70,15 @@ describe('Test vote part', () => {
         .then(()=>{
           request(basePath).get(`/post/topic/${topic}`).then((afterUpvote) => {
             let afterObject = getPostVoteByPosition(afterUpvote, 0);
-            expect(beforeObject.upvote).toEqual(afterObject.upvote - 1);
+            expect(beforeObject.upvote + 1).toBe(afterObject.upvote);
           });
         });
       });
     });
 
     it('Test submit a down vote to a post', async () => {
-      await request(basePath).get(`/post/topic/${topic}`).then((beforeUpvote) => {
-        let beforeObject = getPostVoteByPosition(beforeUpvote, 0);
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeDownvote) => {
+        let beforeObject = getPostVoteByPosition(beforeDownvote, 0);
         const voteData = {
           postId: beforeObject.postId,
           replyId: beforeObject.replyId,
@@ -90,9 +90,9 @@ describe('Test vote part', () => {
         .send(voteData)
         .expect(200)
         .then(()=>{
-          request(basePath).get(`/post/topic/${topic}`).then((afterUpvote) => {
-            let afterObject = getPostVoteByPosition(afterUpvote, 0);
-            expect(beforeObject.downvote).toEqual(afterObject.downvote - 1);
+          request(basePath).get(`/post/topic/${topic}`).then((afterDownvote) => {
+            let afterObject = getPostVoteByPosition(afterDownvote, 0);
+            expect(beforeObject.downvote + 1).toBe(afterObject.downvote);
           });
         });
       });

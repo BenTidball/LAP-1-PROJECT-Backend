@@ -67,9 +67,9 @@ describe('Test comment part', () => {
         .send(commentData)
         .expect(200)
         .then(()=>{
-          request(basePath).get(`/post/topic/${topic}`).then((afterSubmitComment)=>{
+          request(basePath).get(`/post/topic/${topic}`).then((afterSubmitComment)=>{            
             let afterObject = getPostCommentsByPosition(afterSubmitComment, 0);
-            expect(beforeObject.comments.length).toEqual(afterObject.comments.length + 1);
+            expect(beforeObject.comments.length + 1).toBe(afterObject.comments.length);
           });
         });
       });
