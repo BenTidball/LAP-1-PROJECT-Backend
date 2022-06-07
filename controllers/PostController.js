@@ -1,7 +1,10 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router();
 const postData = require('../server/postData');
 //const getPostData = require('../server/postData');
+
+router.use(bodyParser.json());
 
 router.get("/", (req, res) => {
     res.send("Get all post");
@@ -41,7 +44,14 @@ router.post("/reaction", (req, res) => {
 router.post("/vote", (req, res) => {
     const data = req.body;
     console.log(`Add vote to a post: ${JSON.stringify(data)}`);
-    res.send("Add vote to a post");
+    if (data.postId !== null && data.replyId === null && data.updownvote !== null) {
+        res.send("Add up vote to a post: TODO");
+    } else if (data.postId !== null && data.replyId === null && data.updownvote !== null) {
+        res.send("Add down vote to a post: TODO");
+    } else {
+        res.status(400);
+        res.send("Missing either postId or replyId");
+    }
 });
 
 module.exports = router;
