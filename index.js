@@ -1,6 +1,4 @@
 const server = require('./server/app');
-const port = 5000;
 
-server.listen(port, ()=>{
-    console.log(`Server is open on port: ${port}`);
-})
+const port = process.env.PORT || 6000; // if there is no PORT env variable, 5000 will be used
+server.listen(port, () => console.log(`Express is running on port ${port}`))
