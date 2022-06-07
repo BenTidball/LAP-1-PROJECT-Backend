@@ -1,10 +1,10 @@
 const request = require("supertest");
 let basePath = `http://localhost:5000`;
+const topic = `cats`;
 
 describe('Test vote part', () => {
   
   describe('Test vote part', () => {
-    const topic = `cats`;
     it('Test if data set exist', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
         let returnObject = JSON.parse(response.text);
