@@ -45,7 +45,7 @@ describe('Test vote part', () => {
       const voteData = {
         postId: null,
         replyId: null,
-        updownvote: null
+        voteType: null
       };
       await request(basePath)
         .post(`/post/vote`)
@@ -59,7 +59,7 @@ describe('Test vote part', () => {
       const voteData = {
         postId: beforeObject.postId,
         replyId: beforeObject.replyId,
-        updownvote: "upvote"
+        voteType: "upvote"
       };
       await request(basePath).post(`/post/vote`).send(voteData).expect(200);
       const afterUpvote = await request(basePath).get(`/post/topic/${topic}`);
@@ -73,7 +73,7 @@ describe('Test vote part', () => {
       const voteData = {
         postId: beforeObject.postId,
         replyId: beforeObject.replyId,
-        updownvote: "downvote"
+        voteType: "downvote"
       };
       await request(basePath).post(`/post/vote`).send(voteData).expect(200);
       const afterUpvote = await request(basePath).get(`/post/topic/${topic}`);
@@ -97,7 +97,7 @@ function getPostFirstObject(responseObject, pos) {
 function getPostVoteByPosition(responseObject, pos) {
   let object = getPostFirstObject(responseObject, pos);
   let voteAttribute = object[`post-vote`];
-  let postId = object[`post-ID`];
+  let postId = object[`post-id`];
   let upVote = voteAttribute.upvote;
   let downVote = voteAttribute.downvote;
   return {

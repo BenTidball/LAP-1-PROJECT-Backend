@@ -13,7 +13,7 @@ async function createNewPost(data, category){
     "post-id": 0,
     "post-title": data.postTitle,
     "post-body": data.postBody,
-    "post-reactions": {"reacion1": 0, "reaction2": 0, "reaction3": 0},
+    "post-reactions": {"reaction1": 0, "reaction2": 0, "reaction3": 0},
     "post-comments": [],
     "post-vote": {"upvote": 0, "downvote": 0}
   };
@@ -40,7 +40,7 @@ async function createNewPost(data, category){
 async function createComment(data, category, postID){
   const commentData = {
     "reply-id": 0,
-    "reply-reactions":{"reacion1":1,"reaction2":0,"reaction3":0},
+    "reply-reactions":{"reaction1":1,"reaction2":0,"reaction3":0},
     "reply-body": data.replyBody,
     "reply-vote":{"upvote":0,"downvote":0}
   }
