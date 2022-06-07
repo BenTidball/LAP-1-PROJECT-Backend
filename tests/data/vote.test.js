@@ -13,43 +13,32 @@ describe('Test vote part', () => {
 
     it('Test if number of post > 0', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
-        let returnObject = JSON.parse(response.text);
-        let listOfData = returnObject.data;
+        let listOfData = getListOfPostObject(response);
         expect(listOfData.length).toBeGreaterThan(0);
     });
 
     it('Test if first post is not null', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
-        let returnObject = JSON.parse(response.text);
-        let listOfData = returnObject.data;
-        let firstRow = listOfData[0];
-        expect(firstRow).not.toBeNull();
+        let object = getPostFirstObject(response, 0);
+        expect(object).not.toBeNull();
     });
 
     it('Test if post has vote attribute', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
-        let returnObject = JSON.parse(response.text);
-        let listOfData = returnObject.data;
-        let firstRow = listOfData[0];
-        expect(firstRow[`post-vote`]).not.toBeNull();
+        let object = getPostFirstObject(response, 0);
+        expect(object[`post-vote`]).not.toBeNull();
     });
 
     it('Test if post has up vote attribute', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
-        let returnObject = JSON.parse(response.text);
-        let listOfData = returnObject.data;
-        let firstRow = listOfData[0];
-        let voteAttribute = firstRow[`post-vote`];
-        expect(voteAttribute.upvote).not.toBeNull();
+        let object = getPostVoteByPosition(response, 0);
+        expect(object.upvote).not.toBeNull();
     });
 
     it('Test if post has down vote attribute', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
-        let returnObject = JSON.parse(response.text);
-        let listOfData = returnObject.data;
-        let firstRow = listOfData[0];
-        let voteAttribute = firstRow[`post-vote`];
-        expect(voteAttribute.downvote).not.toBeNull();
+        let object = getPostVoteByPosition(response, 0);
+        expect(object.downvote).not.toBeNull();
     });
 
     it('Test submit a vote with null attribute', async () => {
@@ -94,12 +83,21 @@ describe('Test vote part', () => {
   });
 });
 
-function getPostVoteByPosition(responseObject, pos) {
+function getListOfPostObject(responseObject) {
   let returnObject = JSON.parse(responseObject.text);
-  let listOfData = returnObject.data;
-  let row = listOfData[pos];
-  let voteAttribute = row[`post-vote`];
-  let postId = row[`post-ID`];
+  return returnObject.data;
+}
+
+function getPostFirstObject(responseObject, pos) {
+  let listOfData = getListOfPostObject(responseObject);
+  let object = listOfData[pos];
+  return object;
+}
+
+function getPostVoteByPosition(responseObject, pos) {
+  let object = getPostFirstObject(responseObject, pos);
+  let voteAttribute = object[`post-vote`];
+  let postId = object[`post-ID`];
   let upVote = voteAttribute.upvote;
   let downVote = voteAttribute.downvote;
   return {
