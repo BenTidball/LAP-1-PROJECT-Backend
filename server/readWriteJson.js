@@ -6,8 +6,8 @@ const returnFile = async (filename) => {
   return JSON.parse(data);
 }
 
-// creates a new post within the current category
-async function createNewPost(data, category){
+// creates a new post within the current topic
+async function createNewPost(data, topic){
   // creating new post data
   const postdata = {
     "post-id": 0,
@@ -18,21 +18,21 @@ async function createNewPost(data, category){
     "post-vote": {"upvote": 0, "downvote": 0}
   };
 
-  // parsing json data to append new post to category data
-  const categoryData = await fs.readFile(`./data/${category}.json`);
-  const categorObject = JSON.parse(categoryData);
+  // parsing json data to append new post to topic data
+  const topicData = await fs.readFile(`./data/${topic}.json`);
+  const topicObject = JSON.parse(topicData);
 
   // assign post id as an increment of the length of the data
-  postdata["post-id"] = categorObject.data.length +1;
+  postdata["post-id"] = topicObject.data.length +1;
   //appending new postdata to the array
-  categorObject.data.push(postdata);
+  topicObject.data.push(postdata);
   
   //overwriting file with new data
-  await writeFile(category, categorObject);
+  await writeFile(topic, topicObject);
 }
 
 //creates a new comment within a existing posts comment array, inputs required are the data/post, the catergory the post exists within, and lastly the post on which the comment is applied
-async function createComment(data, category, post){
+async function createComment(data, topic, post){
   const commentData = {
     "reply-id": 0,
     "reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},
@@ -40,14 +40,14 @@ async function createComment(data, category, post){
     "reply-vote":{"upvote":0,"downvote":0}
   }
     
-  // parsing json data to append new post to category data
-  const categoryData = await fs.readFile(`./data/${category}.json`);
-  const categorObject = JSON.parse(categoryData);
+  // parsing json data to append new post to topic data
+  const topicData = await fs.readFile(`./data/${topic}.json`);
+  const topicObject = JSON.parse(topicData);
 
   //find post within json and append comment to it 
   let targetPost;
   let targetIndex;
-  categorObject.data.forEach((element, index) => {
+  topicObject.data.forEach((element, index) => {
     if(element['post-id'] == post['post-id']){
       targetPost = element;
       targetIndex = index;
@@ -65,19 +65,19 @@ async function createComment(data, category, post){
     //append comment to comments array
     targetPost['post-comments'].push(commentData);
 
-    categorObject.data[targetIndex] = targetPost;
+    topicObject.data[targetIndex] = targetPost;
 
     //overwriting file with new data
-    await writeFile(category, categorObject);
+    await writeFile(topic, topicObject);
   }
 }
 
-async function submitReaction(data, category) {
-  // parsing json data to append new post to category data
-  const categoryData = await fs.readFile(`./data/${category}.json`);
-  const categorObject = JSON.parse(categoryData);
+async function submitReaction(data, topic) {
+  // parsing json data to append new post to topic data
+  const topicData = await fs.readFile(`./data/${topic}.json`);
+  const topicObject = JSON.parse(topicData);
   if (data.postId !== null && data.replyId !== null) {
-    categorObject.data.forEach(element => {
+    topicObject.data.forEach(element => {
       if (element[`post-id`] === data.postId){
         let listOfComments = element[`post-comments`];
         listOfComments.forEach(curComment => {
@@ -87,23 +87,23 @@ async function submitReaction(data, category) {
         });
       }
     });
-    await writeFile(category, categorObject);
+    await writeFile(topic, topicObject);
   } else if (data.postId !== null && data.replyId === null) {
-    categorObject.data.forEach(element => {
+    topicObject.data.forEach(element => {
       if (element[`post-id`] === data.postId){
         element[`post-reactions`][data.reactionType]++;
       }
     });
-    await writeFile(category, categorObject);
+    await writeFile(topic, topicObject);
   }
 }
 
-async function submitVote(data, category) {
-  // parsing json data to append new post to category data
-  const categoryData = await fs.readFile(`./data/${category}.json`);
-  const categorObject = JSON.parse(categoryData);
+async function submitVote(data, topic) {
+  // parsing json data to append new post to topic data
+  const topicData = await fs.readFile(`./data/${topic}.json`);
+  const topicObject = JSON.parse(topicData);
   if (data.postId !== null && data.replyId !== null) {
-    categorObject.data.forEach(element => {
+    topicObject.data.forEach(element => {
       if (element[`post-id`] === data.postId){
         let listOfComments = element[`post-comments`];
         listOfComments.forEach(curComment => {
@@ -113,20 +113,20 @@ async function submitVote(data, category) {
         });
       }
     });
-    await writeFile(category, categorObject);
+    await writeFile(topic, topicObject);
   } else if (data.postId !== null && data.replyId === null) {
-    categorObject.data.forEach(element => {
+    topicObject.data.forEach(element => {
       if (element[`post-id`] === data.postId){
         element[`post-vote`][data.voteType]++;
       }
     });
-    await writeFile(category, categorObject);
+    await writeFile(topic, topicObject);
   }
 }
 
-async function writeFile(category, categorObject) {
+async function writeFile(topic, topicObject) {
   //overwriting file with new data
-  fs.writeFile(`./data/${category}.json`, JSON.stringify(categorObject), err => {
+  fs.writeFile(`./data/${topic}.json`, JSON.stringify(topicObject), err => {
     if (err) {
       console.error(err);
       return;
