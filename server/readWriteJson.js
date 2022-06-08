@@ -35,7 +35,8 @@ async function createNewPost(data, topic){
     "post-body": data.postBody,
     "post-reactions": {"reaction1": 0, "reaction2": 0, "reaction3": 0},
     "post-comments": [],
-    "post-vote": {"upvote": 0, "downvote": 0}
+    "post-vote": {"upvote": 0, "downvote": 0},
+    "post-gif": data.postGif
   };
 
   const topicObject = await readFile(topic);
@@ -56,7 +57,8 @@ async function createComment(data, topic, post){
     "reply-id": 0,
     "reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},
     "reply-body": data.replyBody,
-    "reply-vote":{"upvote":0,"downvote":0}
+    "reply-vote":{"upvote":0,"downvote":0},
+    "reply-gif": data.replyGif
   }
     
   const topicObject = await readFile(topic);
@@ -182,7 +184,8 @@ async function writeFile(topic, topicObject) {
 //   "post-body": "test",
 //   "post-reactions": {"reacion1": 0, "reaction2": 0, "reaction3": 0},
 //   "post-comments": [],
-//   "post-vote": {"upvote": 0, "downvote": 0}
+//   "post-vote": {"upvote": 0, "downvote": 0},
+//   "post-gif": {"gif data": 0}
 // })
 
 module.exports = {returnFile, getAllTopic, createNewPost, createComment, submitReaction, submitVote};
