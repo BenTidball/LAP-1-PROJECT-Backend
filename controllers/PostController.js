@@ -18,10 +18,11 @@ router.get("/topic/:topic", (req, res) => {
     });
 });
 
-router.get("/search/:query", (req, res) => {
-    const query = req.params.query;
-    console.log(query);
-    res.send("Search keyword in all topic");
+router.get("/topic/search/:keyword", (req, res) => {
+    const keyword = req.params.keyword;
+    postData.searchInAllTopic(keyword).then((data) => {
+        res.send(data);
+    });
 });
 
 router.post("/comment", (req, res) => {

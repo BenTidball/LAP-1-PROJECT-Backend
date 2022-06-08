@@ -20,17 +20,46 @@ async function getAllTopic() {
   }
 }
 
+async function searchInAllTopic(keyword) {
+  let allTopic = [];
+  const listOfFilename = await readFile(`dontdeleteme`);
+  listOfFilename.forEach((curFilename) => {
+    allTopic.push(readFile(curFilename));
+  });
+  return Promise.all(allTopic).then((listOfTopic) => {
+    let result = [];
+    listOfTopic.map((curTopic) => {
+      let listOfPost = curTopic.data;
+      listOfPost.map((curPost) => {
+        let postBody = curPost[`post-body`];
+        if (postBody.toLowerCase().includes(keyword.toLowerCase().trim())) {
+          result.push(curPost);
+        } else {
+          let listOfComment = curPost[`post-comments`];
+          listOfComment.forEach((curComment) => {
+            let commentBody = curComment[`reply-body`];
+            if (commentBody.toLowerCase().includes(keyword.toLowerCase().trim())) {
+              result.push(curPost);
+            }
+          });
+        }
+      })
+    });
+    return result;
+  });
+}
+
 // creates a new post within the current topic
 async function createNewPost(data, catergory){
   // creating new post data
   const postdata = {
     "post-id": 0,
-    "post-title": data[1].postTitle,
-    "post-body": data[1].postBody,
+    "post-title": data.postTitle,
+    "post-body": data.postBody,
     "post-reactions": {"reaction1": 0, "reaction2": 0, "reaction3": 0},
     "post-comments": [],
     "post-vote": {"upvote": 0, "downvote": 0},
-    "post-gif": data[1].postGif
+    "post-gif": data.postGif
   };
 
   const targetTopic = data[1].postTitle;
@@ -38,7 +67,7 @@ async function createNewPost(data, catergory){
     if (curAllTopic.includes(targetTopic)) {
       // Exist
       readFile(targetTopic).then((topicObject) => {
-        if (topicObject !== undefined) {
+        if (topicObject.topic !== null) {
           // assign post id as an increment of the length of the data
           postdata["post-id"] = topicObject.data.length +1;
           //appending new postdata to the array
@@ -79,7 +108,7 @@ async function createComment(data, topic, post){
   }
     
   const topicObject = await readFile(topic);
-  if (topicObject !== undefined) {
+  if (topicObject.topic !== null) {
     //find post within json and append comment to it 
     let targetPost;
     let targetIndex;
@@ -90,9 +119,9 @@ async function createComment(data, topic, post){
       }
     });
 
-    if (targetIndex !== undefined) {
+    if (targetIndex.topic !== undefined) {
       // assign post id as an increment of the length of the comment array
-      if (targetPost === undefined) {
+      if (targetPost.topic === undefined) {
         commentData["reply-id"] = 1;
       } else {
         commentData["reply-id"] = targetPost['post-comments'].length +1;
@@ -111,7 +140,7 @@ async function createComment(data, topic, post){
 
 async function submitReaction(data, topic) {
   const topicObject = await readFile(topic);
-  if (topicObject !== undefined) {
+  if (topicObject.topic !== null) {
     if (data.postId !== null && data.replyId !== null) {
       topicObject.data.forEach(element => {
         if (element[`post-id`] === data.postId){
@@ -138,7 +167,7 @@ async function submitReaction(data, topic) {
 async function submitVote(data, topic) {
   // parsing json data to append new post to topic data
   const topicObject = await readFile(topic);
-  if (topicObject !== undefined) {
+  if (topicObject.topic !== null) {
     if (data.postId !== null && data.replyId !== null) {
       topicObject.data.forEach(element => {
         if (element[`post-id`] === data.postId){
@@ -177,8 +206,7 @@ async function readFile(topic) {
         const topicData3 = await fs.readFile(`./data/${topic}.json`);
         return JSON.parse(topicData3);
       } catch (err) {
-        console.log(err);
-        return undefined;
+        return JSON.parse(`{"topic":null,"data":[]}`);
       }
     }
   }
@@ -205,4 +233,4 @@ async function writeFile(topic, topicObject) {
 //   "post-gif": {"gif data": 0}
 // })
 
-module.exports = {returnFile, getAllTopic, createNewPost, createComment, submitReaction, submitVote};
+module.exports = {returnFile, getAllTopic, searchInAllTopic, createNewPost, createComment, submitReaction, submitVote};
