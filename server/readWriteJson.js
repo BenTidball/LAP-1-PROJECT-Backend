@@ -14,11 +14,15 @@ const returnFile = async (filename) => {
 
 async function getAllTopic() {
   let listOfTopic = [];
-  const tree = dir('./data/');
-  tree.children.forEach((curChild) => {
-    let topicName = curChild.name.replace('.json', '');
-    listOfTopic.push(topicName);
-  });
+  try {
+    const tree = dir('data');
+    tree.children.forEach((curChild) => {
+      let topicName = curChild.name.replace('.json', '');
+      listOfTopic.push(topicName);
+    });
+  } catch (err) {
+    console.log(err);
+  }
   return listOfTopic;
 }
 
