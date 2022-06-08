@@ -45,7 +45,7 @@ async function createNewPost(data, catergory){
           topicObject.data.push(postdata);
   
           //overwriting file with new data
-          writeFile(targetTopic, topicObject);
+          writeFile(catergory, topicObject);
         } 
       });
     } else {
