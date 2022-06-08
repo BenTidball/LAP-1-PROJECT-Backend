@@ -1,5 +1,4 @@
 const fs = require('fs').promises;
-const dir = require("directory-tree");
 
 // returns json data to display information
 const returnFile = async (filename) => {
@@ -13,21 +12,16 @@ const returnFile = async (filename) => {
 }
 
 async function getAllTopic() {
-  let listOfTopic = [];
   try {
-    const tree = dir('data');
-    tree.children.forEach((curChild) => {
-      let topicName = curChild.name.replace('.json', '');
-      listOfTopic.push(topicName);
-    });
-  } catch (err) {
+    return await readFile(`dontdeleteme`);
+  } catch(err) {
     console.log(err);
+    return JSON.parse("[]");
   }
-  return listOfTopic;
 }
 
 // creates a new post within the current topic
-async function createNewPost(data, topic){
+async function createNewPost(data){
   // creating new post data
   const postdata = {
     "post-id": 0,
@@ -39,16 +33,39 @@ async function createNewPost(data, topic){
     "post-gif": data.postGif
   };
 
-  const topicObject = await readFile(topic);
-  if (topicObject !== undefined) {
-    // assign post id as an increment of the length of the data
-    postdata["post-id"] = topicObject.data.length +1;
-    //appending new postdata to the array
-    topicObject.data.push(postdata);
-    
-    //overwriting file with new data
-    await writeFile(topic, topicObject);
-  }  
+  const targetTopic = data.postTitle;
+  await getAllTopic().then((curAllTopic) => {
+    if (curAllTopic.includes(targetTopic)) {
+      // Exist
+      readFile(targetTopic).then((topicObject) => {
+        if (topicObject !== undefined) {
+          // assign post id as an increment of the length of the data
+          postdata["post-id"] = topicObject.data.length +1;
+          //appending new postdata to the array
+          topicObject.data.push(postdata);
+  
+          //overwriting file with new data
+          writeFile(targetTopic, topicObject);
+        } 
+      });
+    } else {
+      // New topic
+      let topicObject = {
+        topic: targetTopic,
+        data: []
+      };
+      // assign post id as an increment of the length of the data
+      postdata["post-id"] = topicObject.data.length +1;
+      //appending new postdata to the array
+      topicObject.data.push(postdata);
+
+      //overwriting file with new data
+      writeFile(targetTopic, topicObject);
+
+      curAllTopic.push(targetTopic);
+      writeFile(`dontdeleteme`, curAllTopic);
+    }
+  });   
 }
 
 //creates a new comment within a existing posts comment array, inputs required are the data/post, the catergory the post exists within, and lastly the post on which the comment is applied

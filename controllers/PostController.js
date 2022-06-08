@@ -72,7 +72,7 @@ router.post("/vote", (req, res) => {
 router.post("/post", (req, res) => {
     const data = req.body;
     if(data.postTitle != null && data.postBody != null){
-        postData.createNewPost(data, "cats");
+        postData.createNewPost(data);
     }else {
         res.status(400);
         res.send("Ensure your post has a title and message");
