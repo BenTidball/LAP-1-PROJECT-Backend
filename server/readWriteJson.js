@@ -21,19 +21,19 @@ async function getAllTopic() {
 }
 
 // creates a new post within the current topic
-async function createNewPost(data){
+async function createNewPost(data, catergory){
   // creating new post data
   const postdata = {
     "post-id": 0,
-    "post-title": data.postTitle,
-    "post-body": data.postBody,
+    "post-title": data[1].postTitle,
+    "post-body": data[1].postBody,
     "post-reactions": {"reaction1": 0, "reaction2": 0, "reaction3": 0},
     "post-comments": [],
     "post-vote": {"upvote": 0, "downvote": 0},
-    "post-gif": data.postGif
+    "post-gif": data[1].postGif
   };
 
-  const targetTopic = data.postTitle;
+  const targetTopic = data[1].postTitle;
   await getAllTopic().then((curAllTopic) => {
     if (curAllTopic.includes(targetTopic)) {
       // Exist
@@ -45,7 +45,7 @@ async function createNewPost(data){
           topicObject.data.push(postdata);
   
           //overwriting file with new data
-          writeFile(targetTopic, topicObject);
+          writeFile(catergory, topicObject);
         } 
       });
     } else {
@@ -60,7 +60,7 @@ async function createNewPost(data){
       topicObject.data.push(postdata);
 
       //overwriting file with new data
-      writeFile(targetTopic, topicObject);
+      writeFile(catergory, topicObject);
 
       curAllTopic.push(targetTopic);
       writeFile(`dontdeleteme`, curAllTopic);
