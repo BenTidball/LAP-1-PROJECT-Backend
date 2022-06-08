@@ -5,6 +5,12 @@ const postData = require('../server/readWriteJson');
 
 router.use(bodyParser.json());
 
+router.get("/topic/all", (req, res) => {
+    postData.getAllTopic().then((listOfTopic) => {
+        res.send(listOfTopic);
+    });
+});
+
 router.get("/topic/:topic", (req, res) => {
     const topic = req.params.topic;
     postData.returnFile(topic).then((data)=>{
@@ -14,7 +20,8 @@ router.get("/topic/:topic", (req, res) => {
 
 router.get("/search/:query", (req, res) => {
     const query = req.params.query;
-    res.send("Search a topic? post?: TODO");
+    console.log(query);
+    res.send("Search keyword in all topic");
 });
 
 router.post("/comment", (req, res) => {

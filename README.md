@@ -13,6 +13,50 @@ node start
 node index.js
 ```
 
+API Document
+```
+GET localhost:port/gif
+GET localhost:port/gif/:id
+
+POST localhost:port/post/comment
+  // JSON 
+  {
+    postId: (number), <- Post ID
+    topic: (String), <- Topic ID
+    comment: (String) <- Comment go under the post
+  }
+  
+POST localhost:port/post/reaction
+  // JSON 
+  {
+    postId: (number), <- Post ID
+    replyId: (number), <- Reply ID
+    topic: (String), <- Topic ID
+    reactionType: (String) <- Reaction ID (reaction1, reaction2, reaction3)
+  }
+
+POST localhost:port/post/post
+  // JSON 
+  {
+    postTitle: (String), <- 
+    postBody: (String) <- 
+  }
+
+GET localhost:port/post/topic/all
+
+GET localhost:port/post/topic/:topic
+
+POST localhost:port/post/vote
+  // JSON 
+  {
+    postId: (number), <- Post ID
+    replyId: (number), <- Reply ID
+    topic: (String), <- Topic ID
+    voteType: (String) <- Vote Type (upvote, downvote)
+  }
+
+```
+
 ## Technologies
 - JavaScript
   - Express

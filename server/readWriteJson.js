@@ -1,4 +1,5 @@
 const fs = require('fs').promises;
+const dir = require("directory-tree");
 
 // returns json data to display information
 const returnFile = async (filename) => {
@@ -9,6 +10,16 @@ const returnFile = async (filename) => {
     console.log(err);
     return JSON.parse("{}");
   }
+}
+
+async function getAllTopic() {
+  let listOfTopic = [];
+  const tree = dir('./data/');
+  tree.children.forEach((curChild) => {
+    let topicName = curChild.name.replace('.json', '');
+    listOfTopic.push(topicName);
+  });
+  return listOfTopic;
 }
 
 // creates a new post within the current topic
@@ -173,4 +184,4 @@ async function writeFile(topic, topicObject) {
 //   "post-gif": {"gif data": 0}
 // })
 
-module.exports = {returnFile, createNewPost, createComment, submitReaction, submitVote};
+module.exports = {returnFile, getAllTopic, createNewPost, createComment, submitReaction, submitVote};
