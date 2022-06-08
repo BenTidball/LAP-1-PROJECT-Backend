@@ -28,7 +28,7 @@
           "post-vote":{
              "upvote":22,
              "downvote":5
-          }
+          },"post-gif": {"gif data": 0}
        }
     ]
  }

@@ -12,4 +12,10 @@ router.get("/readPost", (req, res) => {
     });
 });
 
+router.get("/posts/:id", (req, res) => {
+    getPostData.returnFile(req.params.id.toString()).then((data)=>{
+        res.send(data);
+    });
+});
+
 module.exports = router;
