@@ -1,34 +1,9 @@
-{
-    "topic":"Cat",
-    "data":[
-       {
-          "post-id":1,
-          "post-title":"Cat 1",
-          "post-body":"This is a Cat 1",
-          "post-reactions":{
-             "reaction1":3,
-             "reaction2":5,
-             "reaction3":21
-          },
-          "post-comments":[
-             {
-                "reply-id":1,
-                "reply-reactions":{
-                   "reaction1":1,
-                   "reaction2":0,
-                   "reaction3":0
-                },
-                "reply-body":"She looks so cute",
-                "reply-vote":{
-                   "upvote":2,
-                   "downvote":0
-                }
-             }
-          ],
-          "post-vote":{
-             "upvote":22,
-             "downvote":5
-          },"post-gif": {"gif data": 0}
-       }
-    ]
- }
+{"topic":"Cat",
+    "data":[{
+            "post-id":1,"post-title":"Cat 100",
+            "post-body":"This is a Cat 100",
+            "post-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},
+            "post-comments":[],
+            "post-vote":{"upvote":0,"downvote":0}
+        }]
+}

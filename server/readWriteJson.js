@@ -52,6 +52,7 @@ async function searchInAllTopic(keyword) {
 // creates a new post within the current topic
 async function createNewPost(data, catergory){
   // creating new post data
+
   const postdata = {
     "post-id": 0,
     "post-title": data.postTitle,
@@ -62,39 +63,23 @@ async function createNewPost(data, catergory){
     "post-gif": data.postGif
   };
 
-  const targetTopic = data[1].postTitle;
-  await getAllTopic().then((curAllTopic) => {
-    if (curAllTopic.includes(targetTopic)) {
-      // Exist
-      readFile(targetTopic).then((topicObject) => {
-        if (topicObject.topic !== null) {
-          // assign post id as an increment of the length of the data
-          postdata["post-id"] = topicObject.data.length +1;
-          //appending new postdata to the array
-          topicObject.data.push(postdata);
-  
-          //overwriting file with new data
-          writeFile(catergory, topicObject);
-        } 
-      });
-    } else {
-      // New topic
-      let topicObject = {
-        topic: targetTopic,
-        data: []
-      };
-      // assign post id as an increment of the length of the data
-      postdata["post-id"] = topicObject.data.length +1;
-      //appending new postdata to the array
-      topicObject.data.push(postdata);
+   // parsing json data to append new post to category data
+   const categoryData = await fs.readFile(`./data/${catergory.category}.json`);
+   const categorObject = JSON.parse(categoryData);
+   categorObject.data.push(postdata);
+ 
+   // assign post id as an increment of the length of the data
+   postdata["post-id"] = categorObject.data.length +1;
+   //appending new postdata to the array
+   categorObject.data.push(postdata);
+ 
+   //overwriting file with new data
+   fs.writeFile(`./data/${catergory.category}.json`, JSON.stringify(categorObject)), err => {
+     console.log(err)
+   }
 
-      //overwriting file with new data
-      writeFile(catergory, topicObject);
-
-      curAllTopic.push(targetTopic);
-      writeFile(`dontdeleteme`, curAllTopic);
-    }
-  });   
+    // catergory.category.push(data.postTitle);
+    // writeFile(`dontdeleteme`, catergory.category);
 }
 
 //creates a new comment within a existing posts comment array, inputs required are the data/post, the catergory the post exists within, and lastly the post on which the comment is applied
@@ -234,3 +219,6 @@ async function writeFile(topic, topicObject) {
 // })
 
 module.exports = {returnFile, getAllTopic, searchInAllTopic, createNewPost, createComment, submitReaction, submitVote};
+
+
+// createNewPost({postTitle:"Cat 100",postBody:"This is a Cat 100"}, "cats");
