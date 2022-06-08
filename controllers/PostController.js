@@ -35,7 +35,7 @@ router.post("/comment", (req, res) => {
 router.post("/reaction", (req, res) => {
     const data = req.body;
     console.log(`Add reaction to a post: ${JSON.stringify(data)}`);
-    if (data.postId !== null && data.replyId === null && data.topic !== null && data.reactionType !== null) {
+    if (data.postId !== null && data.replyId !== null && data.topic !== null && data.reactionType !== null) {
         postData.submitReaction(data, data.topic);
         res.send("Added reaction");
     } else if (data.postId !== null && data.replyId === null && data.topic !== null && data.reactionType !== null) {
@@ -50,7 +50,7 @@ router.post("/reaction", (req, res) => {
 router.post("/vote", (req, res) => {
     const data = req.body;
     console.log(`Add vote to a post: ${JSON.stringify(data)}`);
-    if (data.postId !== null && data.replyId === null && data.topic !== null && data.voteType !== null) {
+    if (data.postId !== null && data.replyId !== null && data.topic !== null && data.voteType !== null) {
         postData.submitVote(data, data.topic);
         res.send("Added vote");
     } else if (data.postId !== null && data.replyId === null && data.topic !== null && data.voteType !== null) {

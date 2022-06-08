@@ -19,13 +19,13 @@ describe('Test vote part', () => {
 
     it('Test if first post is not null', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
-        let object = getPostFirstObject(response, 0);
+        let object = getPostVoteByPosition(response, 0);
         expect(object).not.toBeNull();
     });
 
     it('Test if post has vote attribute', async () => {
         const response = await request(basePath).get(`/post/topic/${topic}`);
-        let object = getPostFirstObject(response, 0);
+        let object = getPostVoteByPosition(response, 0);
         expect(object[`post-vote`]).not.toBeNull();
     });
 
@@ -54,7 +54,7 @@ describe('Test vote part', () => {
         .expect(400);
     });
 
-    it('Test submit a up vote to a post', async () => {
+    it('Test submit a up vote to the first post', async () => {
       await request(basePath).get(`/post/topic/${topic}`).then((beforeUpvote) => {
         let beforeObject = getPostVoteByPosition(beforeUpvote, 0);
         const voteData = {
@@ -76,7 +76,7 @@ describe('Test vote part', () => {
       });
     });
 
-    it('Test submit a down vote to a post', async () => {
+    it('Test submit a down vote to the first post', async () => {
       await request(basePath).get(`/post/topic/${topic}`).then((beforeDownvote) => {
         let beforeObject = getPostVoteByPosition(beforeDownvote, 0);
         const voteData = {
@@ -97,6 +97,51 @@ describe('Test vote part', () => {
         });
       });
     });
+
+    it('Test submit a up vote to first reply in the first post', async () => {
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeUpvote) => {
+        let beforeObject = getReplyVoteByPosition(beforeUpvote, 0);
+        const voteData = {
+          postId: beforeObject.postId,
+          replyId: beforeObject.replyId,
+          topic: topic,
+          voteType: "upvote"
+        };
+        request(basePath)
+        .post(`/post/vote`)
+        .send(voteData)
+        .expect(200)
+        .then(()=>{
+          request(basePath).get(`/post/topic/${topic}`).then((afterUpvote) => {
+            let afterObject = getReplyVoteByPosition(afterUpvote, 0);
+            expect(beforeObject.upvote + 1).toBe(afterObject.upvote);
+          });
+        });
+      });
+    });
+
+    it('Test submit a down vote to first reply in the first post', async () => {
+      await request(basePath).get(`/post/topic/${topic}`).then((beforeDownvote) => {
+        let beforeObject = getReplyVoteByPosition(beforeDownvote, 0);
+        const voteData = {
+          postId: beforeObject.postId,
+          replyId: beforeObject.replyId,
+          topic: topic,
+          voteType: "downvote"
+        };
+        request(basePath)
+        .post(`/post/vote`)
+        .send(voteData)
+        .expect(200)
+        .then(()=>{
+          request(basePath).get(`/post/topic/${topic}`).then((afterDownvote) => {
+            let afterObject = getReplyVoteByPosition(afterDownvote, 0);
+            expect(beforeObject.downvote + 1).toBe(afterObject.downvote);
+          });
+        });
+      });
+    });
+
   });
 });
 
@@ -105,14 +150,14 @@ function getListOfPostObject(responseObject) {
   return returnObject.data;
 }
 
-function getPostFirstObject(responseObject, pos) {
+function getPostObjectByPos(responseObject, pos) {
   let listOfData = getListOfPostObject(responseObject);
   let object = listOfData[pos];
   return object;
 }
 
 function getPostVoteByPosition(responseObject, pos) {
-  let object = getPostFirstObject(responseObject, pos);
+  let object = getPostObjectByPos(responseObject, pos);
   let voteAttribute = object[`post-vote`];
   let postId = object[`post-id`];
   let upVote = voteAttribute.upvote;
@@ -122,5 +167,26 @@ function getPostVoteByPosition(responseObject, pos) {
     replyId: null,
     upvote: upVote,
     downvote: downVote
+  }
+}
+
+function getReplyObjectByPos(postObject, pos) {
+  return postObject[`post-comments`][pos];
+}
+
+function getReplyVoteByPosition(responseObject, pos) {
+  let postObject = getPostObjectByPos(responseObject, pos);
+  let replyObject = getReplyObjectByPos(postObject, pos);
+  let voteAttribute = replyObject[`reply-vote`];
+  let postId = postObject[`post-id`];
+  let replyId = replyObject[`reply-id`];
+  let upVote = voteAttribute.upvote;
+  let downVote = voteAttribute.downvote;
+  return {
+    postId: postId,
+    replyId: replyId,
+    upvote: upVote,
+    downvote: downVote
   };
 }
+
