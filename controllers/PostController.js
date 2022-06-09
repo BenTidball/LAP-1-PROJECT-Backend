@@ -29,10 +29,7 @@ router.post("/comment", (req, res) => {
     const data = req.body;
     console.log(`Add comment to a post: ${JSON.stringify(data)}`);
     if ('postId' in data && 'topic' in data && 'comment' in data) {
-        let inputData = {};
-        inputData[`post-id`] = data.postId;
-        inputData[`replyBody`] = data.comment;
-        postData.createComment(inputData, data.topic, inputData);
+        postData.createComment(data);
         res.send("Added comment");
     } else {
         res.status(400);
@@ -44,7 +41,7 @@ router.post("/reaction", (req, res) => {
     const data = req.body;
     console.log(`Add reaction to a post: ${JSON.stringify(data)}`);
     if ('postId' in data && 'replyId' in data && 'topic' in data && 'reactionType' in data) {
-        postData.submitReaction(data, data.topic);
+        postData.submitReaction(data);
         res.send("Added reaction");
     } else {
         res.status(400);
@@ -56,7 +53,7 @@ router.post("/vote", (req, res) => {
     const data = req.body;
     console.log(`Add vote to a post: ${JSON.stringify(data)}`);
     if ('postId' in data && 'replyId' in data && 'topic' in data && 'voteType' in data) {
-        postData.submitVote(data, data.topic);
+        postData.submitVote(data);
         res.send("Added vote");
     } else {
         res.status(400);

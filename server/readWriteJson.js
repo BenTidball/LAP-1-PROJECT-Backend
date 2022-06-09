@@ -94,48 +94,44 @@ async function createNewPost(data){
 }
 
 //creates a new comment within a existing posts comment array, inputs required are the data/post, the catergory the post exists within, and lastly the post on which the comment is applied
-async function createComment(data, topic, post){
+async function createComment(data){
   const commentData = {
-    "reply-id": 0,
+    "reply-id": 1,
     "reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},
-    "reply-body": data.replyBody,
+    "reply-body": data.comment,
     "reply-vote":{"upvote":0,"downvote":0},
     "reply-gif": data.replyGif
   }
     
-  const topicObject = await readFile(topic);
+  const topicObject = await readFile(data.topic);
   if (topicObject.topic !== null) {
     //find post within json and append comment to it 
     let targetPost;
     let targetIndex;
     topicObject.data.forEach((element, index) => {
-      if(element['post-id'] == post['post-id']){
+      if(element['post-id'] === data.postId){
         targetPost = element;
         targetIndex = index;
       }
     });
-
-    if (targetIndex.topic !== undefined) {
+    if (targetPost !== undefined) {
       // assign post id as an increment of the length of the comment array
-      if (targetPost.topic === undefined) {
-        commentData["reply-id"] = 1;
-      } else {
+      if (targetPost['post-comments'].length > 0) {
         commentData["reply-id"] = targetPost['post-comments'].length +1;
       }
-      
       //append comment to comments array
       targetPost['post-comments'].push(commentData);
 
       topicObject.data[targetIndex] = targetPost;
 
       //overwriting file with new data
-      await writeFile(topic, topicObject);
+      await writeFile(data.topic, topicObject);
     }
   }
 }
 
-async function submitReaction(data, topic) {
-  const topicObject = await readFile(topic);
+async function submitReaction(data) {
+  const topicObject = await readFile(data.topic);
   if (topicObject.topic !== null) {
     if (data.postId !== null && data.replyId !== null) {
       topicObject.data.forEach(element => {
@@ -148,21 +144,21 @@ async function submitReaction(data, topic) {
           });
         }
       });
-      await writeFile(topic, topicObject);
+      await writeFile(data.topic, topicObject);
     } else if (data.postId !== null && data.replyId === null) {
       topicObject.data.forEach(element => {
         if (element[`post-id`] === data.postId){
           element[`post-reactions`][data.reactionType]++;
         }
       });
-      await writeFile(topic, topicObject);
+      await writeFile(data.topic, topicObject);
     }
   }
 }
 
-async function submitVote(data, topic) {
+async function submitVote(data) {
   // parsing json data to append new post to topic data
-  const topicObject = await readFile(topic);
+  const topicObject = await readFile(data.topic);
   if (topicObject.topic !== null) {
     if (data.postId !== null && data.replyId !== null) {
       topicObject.data.forEach(element => {
@@ -175,14 +171,14 @@ async function submitVote(data, topic) {
           });
         }
       });
-      await writeFile(topic, topicObject);
+      await writeFile(data.topic, topicObject);
     } else if (data.postId !== null && data.replyId === null) {
       topicObject.data.forEach(element => {
         if (element[`post-id`] === data.postId){
           element[`post-vote`][data.voteType]++;
         }
       });
-      await writeFile(topic, topicObject);
+      await writeFile(data.topic, topicObject);
     }
   }
 }
