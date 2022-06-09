@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) [![GitHub issues](https://img.shields.io/github/issues/BenTidball/LAP-1-PROJECT-Backend)](https://github.com/BenTidball/LAP-1-PROJECT-Backend/issues)
+
 ## Lap1 Project - Backend
 Create a community platform to display journal entries from other users - utilising front/backend to store json data - deployed to netlify and herouku
 
@@ -5,6 +7,10 @@ Create a community platform to display journal entries from other users - utilis
 To work with project clone the repo and install dependencies with: ``` npm install ``` <br/>
 alternatively for development you can also install jest and supertest for testing: ``` npm install jest supertest -D ```
 
+## Technologies
+- JavaScript
+  - Express
+  
 ## Usage
 To start the server, type either of the following commands into the command line:
 ```
@@ -13,10 +19,34 @@ node start
 node index.js
 ```
 
-API Document
+## API Document
+### Heroku
+Backend is hosted on Heroku: https://portfolio-project-1-backend.herokuapp.com \
+And get/post routes are appended to the url as such: 
+```
+Example url: https://portfolio-project-1-backend.herokuapp.com/get/posts/programming
+GET method: https://portfolio-project-1-backend.herokuapp.com/get/posts/<topic>
+```
+With \<topic\> being interchangeable with supported page forum topics
+
+### local
+Backend can also be locally hosted via running the server and replacing the backend url with localhost:5000 or chosen port number:
+```
+Example url: localhost:<port>/get/posts/programming
+GET method: localhost:<port>/get/posts/<topic>
+```
+With \<topic\> being interchangeable with supported page forum topics \
+And \<port\> being interchangeable with desired port number
+
+### Routes 
+The possible routes and the requests to be made to them
 ```
 GET localhost:port/gif
 GET localhost:port/gif/:id
+// JSON 
+  {
+    id:  <giphy gif id>
+  }
 
 POST localhost:port/post/comment
 Example: http://localhost:5000/post/comment
@@ -67,12 +97,6 @@ Example: http://localhost:5000/post/vote
   }
 
 ```
-
-## Technologies
-- JavaScript
-- Express
-  
-## Process
 
 ## Licence
 MIT licence
