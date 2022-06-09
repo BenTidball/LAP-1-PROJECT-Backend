@@ -1,4 +1,4 @@
-[![GitHub license](https://img.shields.io/github/license/BenTidball/LAP-1-PROJECT-Backend?color=1)](https://github.com/BenTidball/LAP-1-PROJECT-Backend) [![GitHub issues](https://img.shields.io/github/issues/BenTidball/LAP-1-PROJECT-Backend)](https://github.com/BenTidball/LAP-1-PROJECT-Backend/issues)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) [![GitHub issues](https://img.shields.io/github/issues/BenTidball/LAP-1-PROJECT-Backend)](https://github.com/BenTidball/LAP-1-PROJECT-Backend/issues)
 
 ## Lap1 Project - Backend
 Create a community platform to display journal entries from other users - utilising front/backend to store json data - deployed to netlify and herouku
@@ -7,6 +7,10 @@ Create a community platform to display journal entries from other users - utilis
 To work with project clone the repo and install dependencies with: ``` npm install ``` <br/>
 alternatively for development you can also install jest and supertest for testing: ``` npm install jest supertest -D ```
 
+## Technologies
+- JavaScript
+  - Express
+  
 ## Usage
 To start the server, type either of the following commands into the command line:
 ```
@@ -75,12 +79,6 @@ Example: http://localhost:5000/post/vote
   }
 
 ```
-
-## Technologies
-- JavaScript
-- Express
-  
-## Process
 
 ## Licence
 MIT licence
