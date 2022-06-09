@@ -41,8 +41,10 @@ POST localhost:port/post/post
 Example: http://localhost:5000/post/post
   // JSON 
   {
-    postTitle: (String), <- 
-    postBody: (String) <- 
+    postTopic: (string), <- Topic ID
+    postTitle: (String), <- Post Title
+    postBody: (String), <- Post Body
+    postGif: (String) (Optional) <- Gif url?
   }
 
 GET localhost:port/post/topic/all

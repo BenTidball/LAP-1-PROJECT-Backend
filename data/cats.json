@@ -1,6 +1,8 @@
-{"topic":"Cat",
+{"topic":"Cats",
     "data":[{
-            "post-id":1,"post-title":"Cat 100",
+            "post-id":1,
+            "post-topic":"Cats",
+            "post-title":"Cat 100",
             "post-body":"This is a Cat 100",
             "post-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},
             "post-comments":[],

@@ -28,7 +28,7 @@ router.get("/topic/search/:keyword", (req, res) => {
 router.post("/comment", (req, res) => {
     const data = req.body;
     console.log(`Add comment to a post: ${JSON.stringify(data)}`);
-    if (data.postId !== null && data.topic !== null && data.comment !== null) {
+    if ('postId' in data && 'topic' in data && 'comment' in data) {
         let inputData = {};
         inputData[`post-id`] = data.postId;
         inputData[`replyBody`] = data.comment;
@@ -43,10 +43,7 @@ router.post("/comment", (req, res) => {
 router.post("/reaction", (req, res) => {
     const data = req.body;
     console.log(`Add reaction to a post: ${JSON.stringify(data)}`);
-    if (data.postId !== null && data.replyId !== null && data.topic !== null && data.reactionType !== null) {
-        postData.submitReaction(data, data.topic);
-        res.send("Added reaction");
-    } else if (data.postId !== null && data.replyId === null && data.topic !== null && data.reactionType !== null) {
+    if ('postId' in data && 'replyId' in data && 'topic' in data && 'reactionType' in data) {
         postData.submitReaction(data, data.topic);
         res.send("Added reaction");
     } else {
@@ -58,10 +55,7 @@ router.post("/reaction", (req, res) => {
 router.post("/vote", (req, res) => {
     const data = req.body;
     console.log(`Add vote to a post: ${JSON.stringify(data)}`);
-    if (data.postId !== null && data.replyId !== null && data.topic !== null && data.voteType !== null) {
-        postData.submitVote(data, data.topic);
-        res.send("Added vote");
-    } else if (data.postId !== null && data.replyId === null && data.topic !== null && data.voteType !== null) {
+    if ('postId' in data && 'replyId' in data && 'topic' in data && 'voteType' in data) {
         postData.submitVote(data, data.topic);
         res.send("Added vote");
     } else {
@@ -71,13 +65,13 @@ router.post("/vote", (req, res) => {
 });
 
 router.post("/post", (req, res) => {
-    const category = req.body[0];
-    const data = req.body[1];
-    if(data.postTitle != null && data.postBody != null){
-        postData.createNewPost(data, category);
+    const data = req.body;
+    console.log(`Add a post: ${JSON.stringify(data)}`);
+    if('postTopic' in data && 'postTitle' in data && 'postBody' in data) {
+        postData.createNewPost(data);
     }else {
         res.status(400);
-        res.send("Ensure your post has a title and message");
+        res.send("Missing either postTopic or postTitle or postBody");
     }
 })
 

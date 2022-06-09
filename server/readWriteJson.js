@@ -54,11 +54,12 @@ async function searchInAllTopic(keyword) {
 }
 
 // creates a new post within the current topic
-async function createNewPost(data, catergory){
+async function createNewPost(data){
   // creating new post data
 
   const postdata = {
     "post-id": 0,
+    "post-topic": data.postTopic,
     "post-title": data.postTitle,
     "post-body": data.postBody,
     "post-reactions": {"reaction1": 0, "reaction2": 0, "reaction3": 0},
@@ -67,23 +68,28 @@ async function createNewPost(data, catergory){
     "post-gif": data.postGif
   };
 
-   // parsing json data to append new post to category data
-   const categoryData = await fs.readFile(`./data/${catergory.category}.json`);
-   const categorObject = JSON.parse(categoryData);
-   categorObject.data.push(postdata);
+   let newTopic = false;
+   const allPostObject = await readFile(data.postTopic);
+   if (allPostObject.data.length == 0) {
+    allPostObject.topic = data.postTopic;
+    newTopic = true;
+   }
  
    // assign post id as an increment of the length of the data
-   postdata["post-id"] = categorObject.data.length +1;
+   postdata["post-id"] = allPostObject.data.length +1;
    //appending new postdata to the array
-   categorObject.data.push(postdata);
+   allPostObject.data.push(postdata);
  
    //overwriting file with new data
-   fs.writeFile(`./data/${catergory.category}.json`, JSON.stringify(categorObject)), err => {
+   fs.writeFile(`./data/${data.postTopic}.json`, JSON.stringify(allPostObject)), err => {
      console.log(err)
    }
 
-    // catergory.category.push(data.postTitle);
-    // writeFile(`dontdeleteme`, catergory.category);
+   if (newTopic) {
+    let topics = await readFile(`dontdeleteme`);
+    topics.push(data.postTopic);
+    writeFile(`dontdeleteme`, topics);
+   }
 }
 
 //creates a new comment within a existing posts comment array, inputs required are the data/post, the catergory the post exists within, and lastly the post on which the comment is applied
