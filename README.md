@@ -19,7 +19,7 @@ GET localhost:port/gif
 GET localhost:port/gif/:id
 // JSON 
   {
-    id:  <gif id>
+    id:  <giphy gif id>
   }
 
 POST localhost:port/post/comment
