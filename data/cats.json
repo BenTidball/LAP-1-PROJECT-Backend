@@ -1,11 +1,1 @@
-{"topic":"cats",
-    "data":[{
-            "post-id":1,
-            "post-topic":"cats",
-            "post-title":"Cat 100",
-            "post-body":"This is a Cat 100",
-            "post-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},
-            "post-comments":[],
-            "post-vote":{"upvote":0,"downvote":0}
-        }]
-}
+{"topic":"cats","data":[{"post-id":1,"post-topic":"cats","post-title":"Cat 100","post-body":"This is a Cat 100","post-reactions":{"reaction1":2,"reaction2":3,"reaction3":1},"post-comments":[{"reply-id":1,"reply-reactions":{"reaction1":1,"reaction2":1,"reaction3":1},"reply-body":"Put in new comment","reply-vote":{"upvote":1,"downvote":0}},{"reply-id":2,"reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},"reply-body":"Put in new comment","reply-vote":{"upvote":0,"downvote":0}},{"reply-id":3,"reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},"reply-body":"Put in another new comment","reply-vote":{"upvote":0,"downvote":0}},{"reply-id":4,"reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},"reply-body":"She is so cute!","reply-vote":{"upvote":0,"downvote":0}},{"reply-id":5,"reply-reactions":{"reaction1":0,"reaction2":0,"reaction3":0},"reply-body":"She is so cute!","reply-vote":{"upvote":0,"downvote":0}}],"post-vote":{"upvote":1,"downvote":1}}]}
