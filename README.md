@@ -19,6 +19,7 @@ GET localhost:port/gif
 GET localhost:port/gif/:id
 
 POST localhost:port/post/comment
+Example: http://localhost:5000/post/comment
   // JSON 
   {
     postId: (number), <- Post ID
@@ -27,6 +28,7 @@ POST localhost:port/post/comment
   }
   
 POST localhost:port/post/reaction
+Example: http://localhost:5000/post/reaction
   // JSON 
   {
     postId: (number), <- Post ID
@@ -36,6 +38,7 @@ POST localhost:port/post/reaction
   }
 
 POST localhost:port/post/post
+Example: http://localhost:5000/post/post
   // JSON 
   {
     postTitle: (String), <- 
@@ -43,10 +46,16 @@ POST localhost:port/post/post
   }
 
 GET localhost:port/post/topic/all
+Example: http://localhost:5000/post/topic/all
 
 GET localhost:port/post/topic/:topic
+Example: http://localhost:5000/post/topic/cats
+
+GET localhost:port/post/topic/search/:keyword
+Example: http://localhost:5000/post/topic/search/cat
 
 POST localhost:port/post/vote
+Example: http://localhost:5000/post/vote
   // JSON 
   {
     postId: (number), <- Post ID
@@ -59,7 +68,7 @@ POST localhost:port/post/vote
 
 ## Technologies
 - JavaScript
-  - Express
+- Express
   
 ## Process
 
