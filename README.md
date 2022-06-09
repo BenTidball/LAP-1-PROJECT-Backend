@@ -19,10 +19,28 @@ node start
 node index.js
 ```
 
-API Document
+## API Document
+### Heroku
+Backend is hosted on Heroku: https://portfolio-project-1-backend.herokuapp.com \
+And get/post routes are appended to the url as such: 
 ```
-Backend is hosted on Heroku: https://portfolio-project-1-backend.herokuapp.com
+Example url: https://portfolio-project-1-backend.herokuapp.com/get/posts/programming
+GET method: https://portfolio-project-1-backend.herokuapp.com/get/posts/<topic>
+```
+With \<topic\> being interchangeable with supported page forum topics
 
+### local
+Backend can also be locally hosted via running the server and replacing the backend url with localhost:5000 or chosen port number:
+```
+Example url: localhost:<port>/get/posts/programming
+GET method: localhost:<port>/get/posts/<topic>
+```
+With \<topic\> being interchangeable with supported page forum topics \
+And \<port\> being interchangeable with desired port number
+
+### Routes 
+The possible routes and the requests to be made to them
+```
 GET localhost:port/gif
 GET localhost:port/gif/:id
 // JSON 
