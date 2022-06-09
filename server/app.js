@@ -9,7 +9,7 @@ app.get("/", (req, res) => {
     res.send("backend test");
 });
 
-// app.use(cors);
+app.use(cors());
 
 app.use('/gif', giphyRouter);
 app.use('/get', GetRouter);
