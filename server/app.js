@@ -9,8 +9,6 @@ app.get("/", (req, res) => {
     res.send("backend test");
 });
 
-// For main branch, don't use cors()
-// cors() is for localhost development only
 app.use(cors());
 
 app.use('/gif', giphyRouter);

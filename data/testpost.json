@@ -1,9 +1,0 @@
-{
-    "post-id": 1,
-    "post-title": "Test post title",
-    "post-body": "This is a test body",
-    "post-reactions": {"reaction1": 0, "reaction2": 0, "reaction3": 0},
-    "post-comments": [],
-    "post-vote": {"upvote": 0, "downvote": 0},
-    "post-gif": {"gif data": 0}
-}

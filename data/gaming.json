@@ -1,8 +1,9 @@
 {
-    "topic": "Programming",
+    "topic": "Gaming",
     "data": [
         {
             "post-id": 1,
+            "post-topic":"Gaming",
             "post-title": "Javascript",
             "post-body": "This is Javascript",
             "post-reactions": {"reaction1": 2, "reaction2": 4, "reaction3": 20},
@@ -12,6 +13,7 @@
         },
         {
             "post-id": 2,
+            "post-topic":"Gaming",
             "post-title": "Typescript",
             "post-body": "This is a Typescript",
             "post-reactions": {"reaction1": 2, "reaction2": 4, "reaction3": 20},
