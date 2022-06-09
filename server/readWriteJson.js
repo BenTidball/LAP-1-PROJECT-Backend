@@ -57,6 +57,7 @@ async function searchInAllTopic(keyword) {
 async function createNewPost(data){
   // creating new post data
 
+  data.postTopic = data.postTopic.toLowerCase();
   const postdata = {
     "post-id": 0,
     "post-topic": data.postTopic,
