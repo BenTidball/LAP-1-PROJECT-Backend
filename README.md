@@ -15,6 +15,8 @@ node index.js
 
 API Document
 ```
+Backend is hosted on Heroku: https://portfolio-project-1-backend.herokuapp.com
+
 GET localhost:port/gif
 GET localhost:port/gif/:id
 // JSON 
