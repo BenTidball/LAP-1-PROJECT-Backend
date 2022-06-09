@@ -31,14 +31,18 @@ async function searchInAllTopic(keyword) {
     listOfTopic.map((curTopic) => {
       let listOfPost = curTopic.data;
       listOfPost.map((curPost) => {
+        let postTitle = curPost[`post-title`];
         let postBody = curPost[`post-body`];
-        if (postBody.toLowerCase().includes(keyword.toLowerCase().trim())) {
+        let postTitleMatch = postTitle.toLowerCase().includes(keyword.toLowerCase().trim());
+        let postBodyMatch = postBody.toLowerCase().includes(keyword.toLowerCase().trim());
+        if (postTitleMatch || postBodyMatch) {
           result.push(curPost);
         } else {
           let listOfComment = curPost[`post-comments`];
           listOfComment.forEach((curComment) => {
             let commentBody = curComment[`reply-body`];
-            if (commentBody.toLowerCase().includes(keyword.toLowerCase().trim())) {
+            let replyBodyMatch = commentBody.toLowerCase().includes(keyword.toLowerCase().trim());
+            if (replyBodyMatch) {
               result.push(curPost);
             }
           });
