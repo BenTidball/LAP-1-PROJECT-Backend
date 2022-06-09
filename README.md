@@ -1,3 +1,5 @@
+[![GitHub license](https://img.shields.io/github/license/BenTidball/LAP-1-PROJECT-Backend?color=1)](https://github.com/BenTidball/LAP-1-PROJECT-Backend) [![GitHub issues](https://img.shields.io/github/issues/BenTidball/LAP-1-PROJECT-Backend)](https://github.com/BenTidball/LAP-1-PROJECT-Backend/issues)
+
 ## Lap1 Project - Backend
 Create a community platform to display journal entries from other users - utilising front/backend to store json data - deployed to netlify and herouku
 
