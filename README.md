@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) [![GitHub issues](https://img.shields.io/github/issues/BenTidball/LAP-1-PROJECT-Backend)](https://github.com/BenTidball/LAP-1-PROJECT-Backend/issues)
+[![Version - 4.0.4](https://img.shields.io/static/v1?label=Version&message=4.0.4&color=2ea44f)](https://github.com/BenTidball/LAP-1-PROJECT-Backend/releases/tag/Release) [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE) [![GitHub issues](https://img.shields.io/github/issues/BenTidball/LAP-1-PROJECT-Backend)](https://github.com/BenTidball/LAP-1-PROJECT-Backend/issues) 
 
 ## Lap1 Project - Backend
 Create a community platform to display journal entries from other users - utilising front/backend to store json data - deployed to netlify and herouku
